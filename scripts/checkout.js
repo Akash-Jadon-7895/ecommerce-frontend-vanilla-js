@@ -1,4 +1,4 @@
-import {cart, removeFromCart, updateDeliveryOption} from '../data/cart.js';
+import {cart, removeFromCart, updateDeliveryOption, updateQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
@@ -59,7 +59,7 @@ function renderOrderSummary(){
               <span>
                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
               </span>
-              <span class="update-quantity-link link-primary">
+              <span class="update-quantity-link link-primary js-update-link">
                 Update
               </span>
               <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
@@ -129,8 +129,45 @@ function renderOrderSummary(){
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
         container.remove();
+        updateHeaderQuantity();
       });
     });
+
+    
+    document.querySelectorAll('.js-update-link')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          const container = button.closest('.cart-item-container');
+          const quantityLabel = container.querySelector('.quantity-label');
+
+          quantityLabel.outerHTML = `
+            <input type="number" class="quantity-input" min="1" max="100"
+            value="${quantityLabel.innerHTML}">
+          `;
+
+          button.outerHTML = `
+            <span class="js-save-quantity-link link-primary">Save</span>
+          `;
+
+          container.querySelector('.js-save-quantity-link')
+            .addEventListener('click', () => {
+              const input = container.querySelector('.quantity-input');
+              let newQuantity = Number(input.value);
+
+              if(newQuantity < 1) newQuantity = 1;
+              if(newQuantity > 100) newQuantity = 100;
+
+              const productId = container
+                .querySelector('.js-delete-link')
+                .dataset.productId;
+
+              updateQuantity(productId, newQuantity);
+              renderOrderSummary();
+              
+            });
+        });
+      });
+
 
     document.querySelectorAll('.js-delivery-option')
       .forEach((element) => {
@@ -140,6 +177,20 @@ function renderOrderSummary(){
           renderOrderSummary();
         });
       });
+
+   updateHeaderQuantity(); 
 }
 
 renderOrderSummary();
+
+function updateHeaderQuantity() {
+  let totalQuantity = 0;
+
+  cart.forEach(item => {
+    totalQuantity += item.quantity;
+  });
+
+  document.querySelector('.return-to-home-link').innerHTML =
+    `${totalQuantity} items`;
+}
+
