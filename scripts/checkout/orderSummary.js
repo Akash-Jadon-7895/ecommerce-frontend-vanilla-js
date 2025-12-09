@@ -1,4 +1,4 @@
-import {cart, removeFromCart, updateDeliveryOption, updateQuantity} from '../../data/cart.js';
+import {cart, removeFromCart, updateDeliveryOption, updateQuantity,updateHeaderQuantity} from '../../data/cart.js';
 import {products, getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
@@ -151,8 +151,12 @@ export function renderOrderSummary(){
               const productId = container
                 .querySelector('.js-delete-link')
                 .dataset.productId;
-
               updateQuantity(productId, newQuantity);
+              const totalQuantity = updateHeaderQuantity();
+
+              document.querySelector('.return-to-home-link').innerHTML =
+              `${totalQuantity} items`;
+
               renderOrderSummary();
               renderPaymentSummary();
               
@@ -170,18 +174,7 @@ export function renderOrderSummary(){
           renderPaymentSummary();
         });
       });
-
-   updateHeaderQuantity(); 
 }
 
-function updateHeaderQuantity() {
-  let totalQuantity = 0;
 
-  cart.forEach(item => {
-    totalQuantity += item.quantity;
-  });
-
-  document.querySelector('.return-to-home-link').innerHTML =
-    `${totalQuantity} items`;
-}
 

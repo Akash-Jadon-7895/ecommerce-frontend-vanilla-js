@@ -60,3 +60,12 @@ export function updateQuantity(productId, newQuantity) {
 
   saveToStorage();
 }
+export function updateHeaderQuantity() {
+  let totalQuantity = 0;
+
+  cart.forEach(item => {
+    totalQuantity += item.quantity;
+  });
+return totalQuantity;
+  
+}
