@@ -1,4 +1,10 @@
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart;
+
+loadFromStorage();
+
+export function loadFromStorage() {
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
+}
 
 function saveToStorage (){
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -60,7 +66,7 @@ export function updateQuantity(productId, newQuantity) {
 
   saveToStorage();
 }
-export function updateHeaderQuantity() {
+export function cartQuantity() {
   let totalQuantity = 0;
 
   cart.forEach(item => {
@@ -69,3 +75,5 @@ export function updateHeaderQuantity() {
 return totalQuantity;
   
 }
+
+
