@@ -1,7 +1,7 @@
-import {cartQuantity} from '../../data/cart.js';
+import {cart} from '../../data/cart-class.js';
 
 export function updateHeaderQuantity(){
-      const totalQuantity = cartQuantity();
+      const totalQuantity = cart.cartQuantity();
 
       document.querySelector('.return-to-home-link').innerHTML =
       `${totalQuantity} items`;
