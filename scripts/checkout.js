@@ -5,8 +5,18 @@ import '../data/cart-class.js';
 // import '../data/backend-practice.js'
 import { loadProducts } from "../data/products.js";
 
-loadProducts(() => {
+new Promise((resolve) => {
+  loadProducts(() => {
+    resolve();
+  })
+}).then(() => {
   renderOrderSummary();
   renderPaymentSummary();
   updateHeaderQuantity();
 });
+
+// loadProducts(() => {
+//   renderOrderSummary();
+//   renderPaymentSummary();
+//   updateHeaderQuantity();
+// });
