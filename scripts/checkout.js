@@ -5,11 +5,22 @@ import '../data/cart-class.js';
 // import '../data/backend-practice.js'
 import {loadProductsFetch } from "../data/products.js";
 
-loadProductsFetch().then(() => {
+async function loadPage(){
+
+  await loadProductsFetch();
   renderOrderSummary();
   renderPaymentSummary();
   updateHeaderQuantity();
-});
+
+}
+loadPage();
+
+
+// loadProductsFetch().then(() => {
+//   renderOrderSummary();
+//   renderPaymentSummary();
+//   updateHeaderQuantity();
+// });
 
 // loadProducts(() => {
 //   renderOrderSummary();
