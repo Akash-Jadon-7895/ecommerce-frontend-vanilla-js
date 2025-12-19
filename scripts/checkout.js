@@ -6,8 +6,14 @@ import '../data/cart-class.js';
 import {loadProductsFetch } from "../data/products.js";
 
 async function loadPage(){
+  try{
+    await loadProductsFetch();
+  } catch (error){
+    console.log('Unexpexted error. Please try again later');
+  }
+  
 
-  await loadProductsFetch();
+  
   renderOrderSummary();
   renderPaymentSummary();
   updateHeaderQuantity();
