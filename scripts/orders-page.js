@@ -24,8 +24,9 @@ function prepareOrders(orders) {
 
 
 async function renderOrderPage() {
-  updateHeaderQuantity();
+  
   await loadProductsFetch();
+  updateHeaderQuantity();
   let orderPageHTML = '';
 
   const sortedOrders = prepareOrders(orders);
