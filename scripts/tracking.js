@@ -1,6 +1,7 @@
 import { orders } from '../data/orders.js';
 import { getProduct, loadProductsFetch } from '../data/products.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+import { updateHeaderQuantity } from './header.js';
 
 
 const url = new URL(window.location.href);
@@ -27,6 +28,7 @@ if (!productInOrder) {
 
 
 await loadProductsFetch();
+updateHeaderQuantity();
 
 const product = getProduct(productId);
 

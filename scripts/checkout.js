@@ -22,8 +22,6 @@ async function loadPage(){
 }
 loadPage();
 
-console.log(orders[0]);
-
 
 // loadProductsFetch().then(() => {
 //   renderOrderSummary();
