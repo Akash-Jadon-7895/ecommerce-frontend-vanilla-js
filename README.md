@@ -100,7 +100,7 @@ Test coverage:
 </p>
 
 <p align="center">
-  <img src="images/orders-page.png" width="45%">
+  <img src="images/order-page.png" width="45%">
   <img src="images/tracking-page.png" width="45%">
 </p>
 
